@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -13,6 +14,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -37,6 +39,7 @@
     ]
   },
   "devDependencies": {
-    "jest-canvas-mock": "^2.5.1"
+    "jest-canvas-mock": "^2.5.1",
+    "tailwindcss": "^3.3.3"
   }
 }

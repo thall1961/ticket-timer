@@ -1,5 +1,7 @@
 import Confetti from "react-confetti";
 import {useEffect, useRef, useState} from "react";
+import Hero from './components/Hero'
+import './input.css'
 import './App.css'
 import alarm from './alarm.mp3'
 
@@ -22,6 +24,7 @@ function App() {
 
   function handleCheckboxClick(event) {
     setSecondsLeft(TOTAL_SECONDS)
+    setGoing(true);
     showConfetti();
     stopTheMusic();
   }
@@ -32,6 +35,7 @@ function App() {
         setSecondsLeft(secondsLeft > 0 ? secondsLeft - 1 : 0)
         if (secondsLeft <= 0) {
           audioRef.current.play();
+          setGoing(false);
         }
       }
     }, 1000);
@@ -46,32 +50,17 @@ function App() {
 
   return (
     <>
-      <div style={{padding: '40px', fontFamily: 'arial, sans-serif', maxWidth: '800px', margin: '0 auto'}}>
-        <div className="flex centered">
-          <h1>TICKET TIMER</h1>
-          <button className="btn secondary" onClick={() => setGoing(!going)}>Start/Stop &rarr;</button>
-        </div>
-        <div className="flex apart">
-          <div>
-            <div style={{padding: 0, margin: 0}}>
-              <div>
-                <h2 style={{
-                  paddingTop: 0,
-                  marginTop: 0,
-                  color: secondsLeft > 0 ? secondsLeft > 5 ? 'green' : 'orange' : 'red'
-                }}>{secondsLeft} seconds left</h2>
-              </div>
-              <Confetti
-                style={{display}}
-                width={windowSize[0]}
-                height={windowSize[1]}
-              />
-              <button className="btn btn-lg primary" onClick={handleCheckboxClick}>NEXT TICKET</button>
-              <audio style={{ marginTop: '200px' }} ref={audioRef} controls src={alarm}>
-              </audio>
-              <button className="btn primary" onClick={stopTheMusic}>STOP THE MUSIC</button>
-            </div>
-          </div>
+      <Hero secondsLeft={secondsLeft} setGoing={setGoing} handleCheckboxClick={handleCheckboxClick} />
+      <Confetti
+        style={{display}}
+        width={windowSize[0]}
+        height={windowSize[1]}
+      />
+      <div className="flex justify-center">
+        <div className="text-center">
+          <audio style={{ marginTop: '200px' }} ref={audioRef} controls src={alarm}>
+          </audio>
+          <button className="px-3 py-2.5 border border-indigo-500 mt-3 rounded shadow-sm" onClick={stopTheMusic}>stop the music</button>
         </div>
       </div>
     </>
